@@ -1,0 +1,19 @@
+/* 
+    Document   : layout
+    Created on : 04-Jul-2013, 22:00:46
+    Author     : guilherme
+    Description:
+        Purpose of the stylesheet follows.
+*/
+html{
+    width: 100%;
+    height: 100%;
+    background-image: url("texture.png");
+}
+
+body{
+    background: greenyellow;
+    width: 800px;
+    margin: 0 auto;
+    height: 100%;
+}
