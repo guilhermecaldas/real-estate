@@ -1,62 +1,46 @@
 <?php
 
-class ReservaBO {
+class employeeBO {
 
-    private $reservaDao = NULL;
+    private $employee_dao = null;
 
     public function __construct() {
-        include_once("reservaDao.class.php");
-        $this->reservaDao = new reservaDao();
+        include_once("employeeDAO.class.php");
+        $this->employee_dao = new employeeDAO();
     }
 
     public function __destruct() {
-        unset($this->reservaDao);
+        unset($this->employee_dao);
     }
 
     public function save() {
 
-        $nroReserva = ReservaVd::getNroReserva();
-        $codCliente = ReservaVd::getCodCliente();
-        $dias = ReservaVd::getDias();
-        $extras = ReservaVd::getExtras();
-        $desconto = ReservaVd::getDesconto();
-        $valor = ReservaVd::getValor();
-
-        if ($desconto != 0 &&
-                $this->findDesconto() == FALSE)
-            throw new Exception("Este cliente não pode 
-				    ter desconto!");
-
-        //fazendo o calculo do valor
-        $total = ($valor * $dias) + $extras;
-
-        //faz o calculo com desconto
-        $totalDesconto = $total -
-                ($total * ($desconto / 100));
-
-        $return = $this->reservaDao->insert(
-                "nroReserva,codCliente,dias,desconto,valorPago", "$nroReserva,$codCliente,$dias,$desconto,
-			 $totalDesconto");
+        $id = employeeVd::getId();
+        $name = employeeVd::getNome();
+        $user_name = employeeVd::getUserName();
+        $password = md5(employeeVd::getPassword());
+        $picture = employeeVd::getPicture();
+        
+        $return = $this->employee_dao->insert("id,name,username,password,picture",
+                "$id,$name,$user_name,$password,$picture");
 
         if ($return == 1)
-            return "Gravacao com sucesso </br>
-				        Valor Pago é R$ $totalDesconto";
+            return "Gravacao com sucesso </br>";
         else {
-
             return "Não foi possível Gravar.Verifique!";
         }
     }
 
     private function findDesconto() {
-        $codCliente = ReservaVd::getCodCliente();
+        $id = employeeVd::getId();
 
-        $row = $this->reservaDao->find("*", "codCliente=$codCliente and valorPago > 260");
+        $row = $this->employee_dao->find("*", "id=$id");
 
-        if ($row != NULL) {
-            return TRUE;
+        if ($row != null) {
+            return true;
         }
         else
-            return FALSE;
+            return false;
     }
 
 }

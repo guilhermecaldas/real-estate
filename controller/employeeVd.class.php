@@ -1,6 +1,6 @@
 <?php
 
-class EmployeeVd {
+class employeeVd {
 
     private static $id;
     private static $name;
@@ -20,7 +20,7 @@ class EmployeeVd {
 
         self::$user_name = $_POST["txUserName"];
 
-        self::$id = $_POST["numId"];
+        self::$id = $_POST["txId"];
         self::$password = $_POST["txPassword"];
         self::$picture = $_POST["txPicture"];
     }
@@ -29,7 +29,7 @@ class EmployeeVd {
         return self::$id;
     }
 
-    public static function getNome() {
+    public static function getName() {
         return self::$name;
     }
 
