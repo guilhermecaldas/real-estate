@@ -15,11 +15,9 @@ class userCtrl {
             case "Gravar":
                 return $userBO->save();
                 break;
+            case "Login": 
+                return $userBO->login();
         }
-    }
-    
-    public function login(){
-        
     }
 
 }

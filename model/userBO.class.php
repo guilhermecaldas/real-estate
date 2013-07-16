@@ -1,4 +1,5 @@
 <?php
+
 class userBO {
 
     private $user_dao = null;
@@ -16,9 +17,8 @@ class userBO {
 
         $user_name = userVd::getUserName();
         $password = userVd::getPassword();
-        
-        $return = $this->user_dao->insert("username,password",
-                "$user_name,$password");
+
+        $return = $this->user_dao->insert("username,password", "$user_name,$password");
 
         if ($return == 1)
             return "Gravacao com sucesso </br>";
@@ -27,17 +27,31 @@ class userBO {
         }
     }
 
-    private function findDesconto() {
-        $username = userVd::getUserName();
+    public function login() {
+        $user_name = userVd::getUserName();
+        $password = userVd::getPassword();
 
-        $row = $this->user_dao->find("*", "$username");
+        $db_user = $this->findUser($user_name)['username'];
+        $db_password = $this->findUser($user_name)['password'];
 
-        if ($row != null) {
-            return true;
+
+        if ($db_user == $user_name) {
+            if ($password == $db_password) {
+                
+            } else {
+                throw Exception("Senha inválida");
+            }
+        } else {
+            throw Exception("Usuário não encontrado");
         }
-        else
-            return false;
+    }
+
+    public function findUser($username) {
+        $row = $this->user_dao->find("*", "where username='$username'");
+
+        return $row;
     }
 
 }
+
 ?>
