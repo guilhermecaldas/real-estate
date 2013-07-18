@@ -1,5 +1,8 @@
 ﻿<?php
 
+$admin_login = "caldas"; 
+$admin_password = "guilherme"; 
+
 class connection {
 
     private static $conn;
